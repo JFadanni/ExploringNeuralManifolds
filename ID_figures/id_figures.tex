@@ -1,0 +1,182 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{subcaption}
+
+\graphicspath{{/home/jfadanni/Multitask/RNN_ID/Figures/}{/home/jfadanni/Documents/Paper_ID_methods/FCI_graphical_explanation}}
+\author{Jacopo Fadanni}
+\begin{document}
+
+\begin{figure}
+ \centering
+ \begin{subfigure}[b]{0.32\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{FCI/FCI_dataset.pdf}
+ \end{subfigure}\label{fig:FCIexpl:FCI_dataset}
+ \begin{subfigure}[b]{0.32\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{FCI/FCI_dataset_processed.pdf}
+ \end{subfigure}\label{fig:FCIexpl:FCI_dataset_processed}
+ \begin{subfigure}[b]{0.32\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{FCI/FCI_dataset_processed_circles.pdf}
+  \end{subfigure}\label{fig:FCIexpl:FCI_dataset_processed_circles}\\
+  \begin{subfigure}[b]{0.36\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{FCI/FCI_fitting_example.pdf}
+  \end{subfigure}\label{fig:FCIexpl:FCI_fitting_example}
+  \begin{subfigure}[b]{0.30\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Model_dataset/plane_3d.pdf}
+  \end{subfigure}\label{fig:FCIexpl:Model_dataset_plane_3d}
+  \begin{subfigure}[b]{0.30\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Model_dataset/swissroll_3d.pdf}
+  \end{subfigure}\label{fig:FCIexpl:Model_dataset_swissroll_3d}
+ \caption{FCI}\label{fig:FCIexpl}
+ % FCI graphical explanation and model dataset
+ \end{figure}
+
+
+\begin{figure}
+ \centering
+ \begin{subfigure}[b]{\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{Local_FCI/localFCI.pdf}
+ \end{subfigure}\label{fig:Local_FCI:localFCI}\\
+ \begin{subfigure}[b]{0.45\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{Model_dataset/hist2d_plane_localFCI.pdf}
+ \end{subfigure}\label{fig:Local_FCI:2dhist_plane}
+ \begin{subfigure}[b]{0.45\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{Model_dataset/hist2d_swissroll_localFCI.pdf}
+ \end{subfigure}\label{fig:Local_FCI:2dhist_swissroll}
+ \caption{Local FCI}\label{fig:Local_FCI}
+ % Local FCI and our way to use the methodology
+\end{figure}
+
+\begin{figure}
+ \centering
+ \begin{subfigure}[b]{0.80\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{RNN_task_annotated_paper.pdf}
+ \end{subfigure}\\
+ \begin{subfigure}[b]{0.29\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{reactgo_inout_activity.pdf}
+ \end{subfigure}\label{fig:RNN_task:reactgo}
+ \begin{subfigure}[b]{0.29\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{fdgo_inout_activity.pdf}
+ \end{subfigure}\label{fig:RNN_task:fdgo}
+\begin{subfigure}[b]{0.29\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{contextdm1_inout_activity.pdf}
+\end{subfigure}\label{fig:RNN_task:contextdm1}
+\begin{subfigure}[b]{0.10\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{colorbar.pdf}
+\end{subfigure}\label{fig:RNN_task:colorbar}
+\caption{RNN task}\label{fig:RNN_task}
+% RNN task: network structure, input and output activity
+\end{figure}
+
+
+\begin{figure}
+ \centering
+ \begin{subfigure}[b]{0.25\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{Reactgo/exp_var_reactgo.pdf}
+ \end{subfigure}\label{fig:Reactgo:exp_var_reactgo}
+ \begin{subfigure}[b]{0.30\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{Reactgo/reactgo_3d.pdf}
+ \end{subfigure}\label{fig:Reactgo:reactgo_3d}
+ \begin{subfigure}[b]{0.40\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{Reactgo/reactgo_3d_2.pdf}
+ \end{subfigure}\label{fig:Reactgo:reactgo_3d_2}\\
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{reactgo_localID.pdf}
+  \end{subfigure}\label{fig:Reactgo:hist2D_reactgo_localFCI}
+ \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Reactgo/lle_2d_reactgo.pdf}
+  \end{subfigure}\label{fig:Reactgo:lle_2d_reactgo}
+ \caption{Reactgo}\label{fig:Reactgo}
+ % Reactgo
+\end{figure}
+
+
+\begin{figure}
+ \centering
+ \begin{subfigure}[b]{0.20\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{Fdgo/exp_var_fdgo.pdf}
+ \end{subfigure}\label{fig:Fdgo:exp_var_fdgo}
+ \begin{subfigure}[b]{0.23\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{Fdgo/fdgo_3d.pdf}
+ \end{subfigure}\label{fig:Fdgo:fdgo_3d}
+ \begin{subfigure}[b]{0.18\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{Fdgo/fdgo_3d_highlight.pdf}
+ \end{subfigure}\label{fig:Fdgo:fdgo_3d_highlight}
+ \begin{subfigure}[b]{0.35\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{Fdgo/fdgo_3d_temporal_highlight.pdf}
+ \end{subfigure}\label{fig:Fdgo:fdgo_3d_temporal}\\
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{fdgo_localID.pdf}
+  \end{subfigure}\label{fig:Fdgo:hist2D_fdgo_localFCI}
+ \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Fdgo/lle_fdgo.pdf}
+  \end{subfigure}\label{fig:Fdgo:lle_2d_fdgo}
+ \caption{Fdgo}\label{fig:Fdgo}
+ % Fdgo
+\end{figure}
+
+
+\begin{figure}
+ \centering
+ \begin{subfigure}[b]{0.25\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{Contextdm1/exp_var_contextdm1.pdf}
+ \end{subfigure}\label{fig:Contextdm1:exp_var_contextdm1}
+ \begin{subfigure}[b]{0.30\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{Contextdm1/contextdm1_3d.pdf}
+ \end{subfigure}\label{fig:Contextdm1:contextdm1_3d}
+ \begin{subfigure}[b]{0.40\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{Contextdm1/contextdm1_3d_2.pdf}
+ \end{subfigure}\label{fig:Contextdm1:contextdm1_3d_2}\\
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{contextdm1_localID.pdf}
+  \end{subfigure}\label{fig:Contextdm1:hist2D_contextdm1_localFCI}
+ \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Contextdm1/lle_2d_contextdm1.pdf}
+  \end{subfigure}\label{fig:Contextdm1:lle_2d_contextdm1}
+ \caption{Contextdm1}\label{fig:Contextdm1}
+ % Contextdm1
+\end{figure}
+
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\textwidth]{local_FCI_alltasks.pdf}
+    \caption{Local FCI for all tasks}
+\end{figure}
+\end{document}
