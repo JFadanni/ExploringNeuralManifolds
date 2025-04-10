@@ -22,5 +22,12 @@ In ordine di priorità:
 - [ ] Rifare conti in base ai risultati dei test
 
 ## To do al 08/04:
-- [ ] lFCI Solla with noise
-- [ ] lFCI Contextdm1 un paio di train
+- [x] lFCI Solla with noise
+- [x] lFCI Contextdm1 un paio di train
+- [x] caricare plot
+- [x] lFCI Contextdm1 smoothing
+- [x] lFCI Contextdm1 all
+- [ ] lFCI all tasks
+- [ ] lFCI Contextdm1 smooth only final
+- [ ] FCI global su dati noise solla
+- [ ] commento noise solla
