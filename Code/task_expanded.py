@@ -32,8 +32,9 @@ def compute_id(coords, method="full", return_gof=False, **kwargs):
     else:
         raise ValueError("unknown method")
 
+    n_fit_points = kwargs.get("n_fit_points", 500)
     try:
-        id_fci, _, gof = pyFCI.fit_FCI(fci)
+        id_fci, _, gof = pyFCI.fit_FCI(fci, n_fit_points)
     except:
         id_fci = np.nan
         gof = 1
@@ -65,14 +66,14 @@ def local_fci_distance_ultrafast(dataset, center_indices, n_centers_neighborhood
 
     n_jobs = kwargs.get("n_jobs", -1)
     tree = KDTree(dataset)
-    local_ids = np.empty((len(center_indices), len(k_values), 3))
+    local_ids = np.full((len(center_indices), len(k_values), 3),-1,dtype=np.float32)
     max_k = k_values[-1]
-    selected_distances, neighbor_indices = tree.query(dataset[center_indices], max_k + 1, workers=-1)
+    selected_distances, neighbor_indices = tree.query(dataset[center_indices], max_k + 1, workers=n_jobs)
 
     def compute_center(i, k, n_c_n):
         center = center_indices[i]
         neighbors = dataset[neighbor_indices[i][:k]]
-        fitted_dimension, gof = compute_id(neighbors, fci_method, return_gof=True)
+        fitted_dimension, gof = compute_id(neighbors, fci_method, return_gof=True, **kwargs)
         return (k, fitted_dimension, gof)
 
     for j, (k, n_c_n) in enumerate(zip(k_values, n_centers_neighborhood)):

@@ -3,9 +3,15 @@ import matplotlib.pyplot as plt
 import h5py
 
 from ID_estimator import *
+from network_structures import BPTT
 
 import tensorflow as tf
 
+import sys
+sys.path.append('../multitask/')
+from task import generate_trials, rule_name
+from network import Model
+import tools
 
 from pyFCI import pyFCI
 
@@ -13,7 +19,7 @@ class Task:
 
     # Class to handle all operations each task needs
 
-    def __init__(self, task_name, task_dir, basedir=".", batch_size=200, **kwargs):
+    def __init__(self, task_name, task_dir, basedir=".", batch_size=200, verbose=False, **kwargs):
 
         # initialize all the matrices
         initial_time = kwargs.get('initial_time', None)
@@ -34,9 +40,62 @@ class Task:
             self.x_train = f["x_train"][:]
             self.y_train = f["y_train"][:]
 
-        print(f"Task {task_name} loaded.")
-        print(f"Number of neurons: {np.size(self.Win.T[0])}")
+        if verbose:
+            print(f"Task {task_name} loaded.")
+            print(f"Number of neurons: {np.size(self.Win.T[0])}")
 
+    def network(self):
+
+        # compute the back-propagation through time on the given task
+        
+        r, z = BPTT(self.Win.T, self.Wrec.T, self.Wout.T, self.brec, self.bout, self.x_train)
+
+        self.r = r
+        self.z = z
+
+        return r, z # return recurrent and output part
+    def network_yang(self, task_name=None, basedir=None,batch_size=200, **kwargs):
+        basedir = self.basedir if basedir is None else basedir
+        task_name = self.task_name if task_name is None else task_name
+        model_dir = basedir+"/"+ task_name
+        rule = task_name
+
+        model = Model(model_dir)
+        hp = model.hp
+        
+        initial_time = kwargs.get('initial_time', None)
+
+        with tf.compat.v1.Session() as sess:
+            model.restore()
+
+        #trial = generate_trials(rule, hp, mode='test',batch_size = 1)
+            if initial_time:
+                trial = generate_trials(rule, hp, mode='random',batch_size = batch_size, initial_time = initial_time)
+            else:
+                trial = generate_trials(rule, hp, mode='random',batch_size = batch_size)
+            feed_dict = tools.gen_feed_dict(model, trial, hp)
+            h, y_hat = sess.run([model.h, model.y_hat], feed_dict=feed_dict)
+        # All matrices have shape (n_time, n_condition, n_neuron)
+        
+#            print(np.shape(trial.x), np.shape(h), np.shape(y_hat))
+
+            if initial_time:    
+                h = h[initial_time:,:,:]
+                y_hat = y_hat[initial_time:,:,:]
+            var_list = model.var_list
+
+        # evaluate the parameters after training
+            params = [sess.run(var) for var in var_list]
+        # get name of each variable
+            names  = [var.name for var in var_list]
+
+            y_trained = np.vstack(np.swapaxes(y_hat, 0, 1))
+            h_trained = np.vstack(np.swapaxes(h, 0, 1))
+
+            self.r = h_trained
+            self.z = y_trained
+
+        return h_trained, y_trained
 
     def find_relevant_points(self):
     # find relevant points for the task
@@ -333,6 +392,15 @@ class Task:
             self.id_2NN_scale = id_2NN_scale
             return id_2NN_scale, fitting_params
 
+    def ID(self):
+
+        # compute the intrinsic dimension
+
+        d, x, y = ID_estimator(self.r)
+
+        self.d = d
+        self.x = x
+        self.y = y
 
     def collect_ID_FCI(self, n_iter = 20, method = "mc", **kwargs):
         """
